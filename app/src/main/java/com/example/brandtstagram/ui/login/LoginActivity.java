@@ -2,7 +2,6 @@ package com.example.brandtstagram.ui.login;
 
 import android.app.Activity;
 
-import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,15 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.brandtstagram.R;
-import com.example.brandtstagram.ui.login.LoginViewModel;
-import com.example.brandtstagram.ui.login.LoginViewModelFactory;
 import com.example.brandtstagram.databinding.ActivityLoginBinding;
 import com.example.brandtstagram.ui.main.MainActivity;
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "LoginActivity";
@@ -47,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if (ParseUser.getCurrentUser() != null) {
+            goMainActivity();
+        }
 
 //        ParseObject firstObject = new  ParseObject("FirstClass");
 //        firstObject.put("message","Hey ! First message from android. Parse is now connected");
@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
+        final Button registerButton = binding.register;
         final ProgressBar loadingProgressBar = binding.loading;
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -73,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loginButton.setEnabled(loginFormState.isDataValid());
+                registerButton.setEnabled(loginFormState.isDataValid());
+
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -140,10 +143,43 @@ public class LoginActivity extends AppCompatActivity {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 loginUser(username, password);
-                Log.i(TAG, "clicked");
+                Log.i(TAG, "clicked login");
 
 //                loginViewModel.login(usernameEditText.getText().toString(),
 //                        passwordEditText.getText().toString());
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                loadingProgressBar.setVisibility(View.VISIBLE);
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                registerUser(username, password);
+                Log.i(TAG, "clicked register");
+                usernameEditText.setText("");
+                passwordEditText.setText("");
+
+//                loginViewModel.login(usernameEditText.getText().toString(),
+//                        passwordEditText.getText().toString());
+            }
+        });
+    }
+
+    private void registerUser(String username, String password) {
+        ParseUser user = new ParseUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with registration", e);
+                    Toast.makeText(LoginActivity.this, "Registration Failure", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(LoginActivity.this, "Registration Success!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -154,11 +190,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with login", e);
+                    Log.e(TAG, "Issue with login"+e, e);
+                    Toast.makeText(LoginActivity.this, "Failure", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
+                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -173,6 +210,7 @@ public class LoginActivity extends AppCompatActivity {
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

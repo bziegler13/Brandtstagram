@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Brandt/CodePathProjects/Brandtstagram/app/src/main/res/layout/activity_login.xml" value="0.2046875" />
+        <entry key="..\:/Users/Brandt/CodePathProjects/Brandtstagram/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Brandt/CodePathProjects/Brandtstagram/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Brandt/CodePathProjects/Brandtstagram/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Brandt/CodePathProjects/Brandtstagram/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/Brandt/CodePathProjects/Brandtstagram/app/src/main/res/xml/fileprovider.xml" value="0.19322916666666667" />
       </map>
     </option>
   </component>
