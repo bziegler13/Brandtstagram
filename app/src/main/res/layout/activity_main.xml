@@ -8,62 +8,28 @@
     tools:context=".ui.main.MainActivity"
     tools:visibility="visible">
 
-    <ImageView
-        android:id="@+id/ivPostImage"
-        android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:visibility="gone"
-        tools:src="@tools:sample/avatars" />
-
-    <ProgressBar
-        android:id="@+id/pbLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ivPostImage">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/descriptionET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/caption_hint"
-            android:textAlignment="textStart" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/takeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutET"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/take_picture" />
-
-    <Button
-        android:id="@+id/submitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/takeBtn"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="false"
-        android:layout_marginTop="20dp"
-        android:text="@string/submit" />
-
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="false"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="0dp"
         android:text="@string/logout" />
+
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation"
+        android:layout_below="@+id/logoutBtn" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>

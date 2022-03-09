@@ -111,5 +111,11 @@
     <string name="submit">Submit</string>
     <string name="logout">Logout</string>
     <string name="register">register</string>
+    <string name="logo">logo</string>
+    <string name="text_home">Home</string>
+    <string name="text_compose">New Post</string>
+    <string name="text_user">My Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
